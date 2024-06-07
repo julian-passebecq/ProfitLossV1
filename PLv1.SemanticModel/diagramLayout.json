@@ -1,0 +1,152 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 373.33334350585938,
+        "y": 2961.333251953125
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 506.1306376282505,
+            "y": 2441.2083500996268
+          },
+          "nodeIndex": "Company Expenses",
+          "nodeLineageTag": "a47a7fa3-20f6-4ab5-810f-aef62f54aed9",
+          "size": {
+            "height": 181.68199184513037,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 514.62706829430726,
+            "y": 2715.0596012562023
+          },
+          "nodeIndex": "Customers",
+          "nodeLineageTag": "edc6e729-0f6e-49f9-8b1e-0a2b873a5848",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 182.46860924743783,
+            "y": 2887.9351279162825
+          },
+          "nodeIndex": "Products",
+          "nodeLineageTag": "a3d0dc07-388e-4e3a-b876-7fd677b071c2",
+          "size": {
+            "height": 148,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 868.29128058651486,
+            "y": 2877.8385370683527
+          },
+          "nodeIndex": "Regions",
+          "nodeLineageTag": "7eb77021-0624-445b-b638-7c4443a6be0b",
+          "size": {
+            "height": 170.00000000000011,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1285.0659751170274,
+            "y": 2872.9197473024219
+          },
+          "nodeIndex": "Date",
+          "nodeLineageTag": "faa06385-e4ae-468c-89c1-8b15a463d2e2",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 531.70606658539248,
+            "y": 3167.0869614405237
+          },
+          "nodeIndex": "Sales",
+          "nodeLineageTag": "5c869427-cfaa-46ac-bbec-b63ccd525152",
+          "size": {
+            "height": 392.85714285714289,
+            "width": 216.85714285714289
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1325.6873671185404,
+            "y": 3395.1022103925793
+          },
+          "nodeIndex": "Income Statement Data",
+          "nodeLineageTag": "9be9adf5-0e01-452e-9f80-dbeaab573dac",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 863.94504355180652,
+            "y": 2433.8558360091229
+          },
+          "nodeIndex": "Channel Revenues",
+          "nodeLineageTag": "95eb4e0b-1890-4e69-aeb7-aa522e2f9165",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 155.66573765396765,
+            "y": 2436.8152673387408
+          },
+          "nodeIndex": "Mesures",
+          "nodeLineageTag": "0ea70a53-60d3-4521-990e-808a4351eae4",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1237.065900344114,
+            "y": 2424.2611085893632
+          },
+          "nodeIndex": "Income Statement Template",
+          "nodeLineageTag": "77346d46-7c84-4ebb-aa6e-46bad8236c2f",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

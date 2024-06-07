@@ -1,0 +1,20 @@
+relationship AutoDetected_3f3343c7-0bff-40cc-a54a-da37c87e7903
+	fromColumn: Sales.'Customer Name Index'
+	toColumn: Customers.'Customer Index'
+
+relationship cfa8f2ba-7de6-910b-7b26-d6f56969bfb8
+	fromColumn: Sales.'Delivery Region Index'
+	toColumn: Regions.Index
+
+relationship 06e75734-96ef-6058-128b-1fa5700aded1
+	fromColumn: Sales.'Customer Name Index'
+	toColumn: Products.Index
+
+relationship ae4fa42f-85bf-9509-886f-66090762a6dc
+	fromColumn: Sales.OrderDate
+	toColumn: Date.Date
+
+relationship 5606bac5-9990-a413-fe8e-fb37dbb8edf5
+	fromColumn: 'Income Statement Data'.Months
+	toColumn: Date.Date
+

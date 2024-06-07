@@ -1,0 +1,58 @@
+table 'Company Expenses'
+	lineageTag: a47a7fa3-20f6-4ab5-810f-aef62f54aed9
+
+	column 'Expense Items'
+		dataType: string
+		lineageTag: 47eeb3de-e619-47e5-8ab6-a5564429d9b6
+		summarizeBy: none
+		sourceColumn: Expense Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Expense Category'
+		dataType: string
+		lineageTag: 7b34c341-ed71-46ea-8c74-dd4bbc88041a
+		summarizeBy: none
+		sourceColumn: Expense Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Months
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ead7730e-05f1-4d6e-94bc-892518802a15
+		summarizeBy: none
+		sourceColumn: Months
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Expense Values'
+		dataType: string
+		lineageTag: b0996bee-c721-43ea-a3a7-cb1f5a54bada
+		summarizeBy: none
+		sourceColumn: Expense Values
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Company Expenses' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    #"Company Expenses_Sheet" = Source{[Item="Company Expenses",Kind="Sheet"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"Company Expenses_Sheet",{{"Column1", type text}, {"Column2", type text}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}, {"Column8", type any}, {"Column9", type any}, {"Column10", type any}, {"Column11", type any}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}, {"Column15", type any}, {"Column16", type any}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}, {"Column22", type any}, {"Column23", type any}, {"Column24", type any}, {"Column25", type any}, {"Column26", type any}, {"Column27", type any}, {"Column28", type any}, {"Column29", type any}, {"Column30", type any}, {"Column31", type any}, {"Column32", type any}, {"Column33", type any}, {"Column34", type any}, {"Column35", type any}, {"Column36", type any}, {"Column37", type any}, {"Column38", type any}, {"Column39", type any}, {"Column40", type any}, {"Column41", type any}, {"Column42", type any}, {"Column43", type any}, {"Column44", type any}, {"Column45", type any}, {"Column46", type any}, {"Column47", type any}, {"Column48", type any}, {"Column49", type any}, {"Column50", type any}, {"Column51", type any}, {"Column52", type any}, {"Column53", type any}, {"Column54", type any}, {"Column55", type any}, {"Column56", type any}, {"Column57", type any}, {"Column58", type any}, {"Column59", type any}, {"Column60", type any}, {"Column61", type any}, {"Column62", type any}, {"Column63", type any}, {"Column64", type any}, {"Column65", type any}, {"Column66", type any}, {"Column67", type any}, {"Column68", type any}, {"Column69", type any}, {"Column70", type any}, {"Column71", type any}, {"Column72", type any}, {"Column73", type any}, {"Column74", type any}, {"Column75", type any}, {"Column76", type any}, {"Column77", type any}, {"Column78", type any}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Expense Items", type text}, {"Expense Category", type text}, {"5/1/2015", type number}, {"6/1/2015", type number}, {"7/1/2015", type number}, {"8/1/2015", type number}, {"9/1/2015", type number}, {"10/1/2015", type number}, {"11/1/2015", type number}, {"12/1/2015", type number}, {"1/1/2016", type number}, {"2/1/2016", type number}, {"3/1/2016", type number}, {"4/1/2016", type number}, {"5/1/2016", type number}, {"6/1/2016", type number}, {"7/1/2016", type number}, {"8/1/2016", type number}, {"9/1/2016", type number}, {"10/1/2016", type number}, {"11/1/2016", type number}, {"12/1/2016", type number}, {"1/1/2017", type number}, {"2/1/2017", type number}, {"3/1/2017", type number}, {"4/1/2017", type number}, {"5/1/2017", type number}, {"6/1/2017", type number}, {"7/1/2017", type number}, {"8/1/2017", type number}, {"9/1/2017", type number}, {"10/1/2017", type number}, {"11/1/2017", type number}, {"12/1/2017", type number}, {"1/1/2018", type number}, {"2/1/2018", type number}, {"3/1/2018", type number}, {"4/1/2018", type number}, {"5/1/2018", type number}, {"Column40", type any}, {"Column41", type any}, {"Column42", type any}, {"Column43", type any}, {"Column44", type any}, {"Column45", type any}, {"Column46", type any}, {"Column47", type any}, {"Column48", type any}, {"Column49", type any}, {"Column50", type any}, {"Column51", type any}, {"Column52", type any}, {"Column53", type any}, {"Column54", type any}, {"Column55", type any}, {"Column56", type any}, {"Column57", type any}, {"Column58", type any}, {"Column59", type any}, {"Column60", type any}, {"Column61", type any}, {"Column62", type any}, {"Column63", type any}, {"Column64", type any}, {"Column65", type any}, {"Column66", type any}, {"Column67", type any}, {"Column68", type any}, {"Column69", type any}, {"Column70", type any}, {"Column71", type any}, {"Column72", type any}, {"Column73", type any}, {"Column74", type any}, {"Column75", type any}, {"Column76", type any}, {"Column77", type any}, {"Column78", type any}}),
+				    #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(#"Changed Type1", {"Expense Items", "Expense Category"}, "Attribute", "Value"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Other Columns",{{"Attribute", "Months"}, {"Value", "Expense Values"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

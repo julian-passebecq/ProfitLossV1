@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../BSv2.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

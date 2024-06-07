@@ -1,0 +1,33 @@
+table Customers
+	lineageTag: edc6e729-0f6e-49f9-8b1e-0a2b873a5848
+
+	column 'Customer Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 21ceb8ae-cc79-4730-8736-f79fd4eed383
+		summarizeBy: none
+		sourceColumn: Customer Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Names'
+		dataType: string
+		lineageTag: f8c33dc4-4e86-48e1-a773-5258466c4914
+		summarizeBy: none
+		sourceColumn: Customer Names
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customers = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    Customers_Sheet = Source{[Item="Customers",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Customers_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Customer Index", Int64.Type}, {"Customer Names", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

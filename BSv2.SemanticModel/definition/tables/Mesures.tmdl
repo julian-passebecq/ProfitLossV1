@@ -1,0 +1,339 @@
+table Mesures
+	lineageTag: 0ea70a53-60d3-4521-990e-808a4351eae4
+
+	measure 'Income Values' = ```
+			SUM('Income Statement Data'[Expense Values])
+			
+			```
+		formatString: 0
+		displayFolder: PL
+		lineageTag: b3500019-c96a-4cd0-916e-b08c1395536d
+
+	measure Revenues = ```
+			CALCULATE(
+			    [Income Values],
+			    'Income Statement Data'[Type] = "Revenues"
+			)
+			
+			```
+		formatString: 0
+		displayFolder: PL
+		lineageTag: fc0d5853-fd45-42b7-8cb6-b08092430b51
+
+	measure COGS = ```
+			CALCULATE(
+			    [Income Values],
+			    'Income Statement Data'[Expense Category] = "COGS"
+			) * -1
+			
+			```
+		formatString: 0
+		displayFolder: PL
+		lineageTag: d457633e-5afe-4bf9-9f26-53adb70380b9
+
+	measure 'Total Sales' = SUM(Sales[Line Total])
+		displayFolder: Sales
+		lineageTag: a9edc589-d18b-4b4b-8982-fa513d3e127c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Profit' = ```
+			[Revenues] + [COGS]
+			
+			```
+		formatString: 0
+		displayFolder: PL
+		lineageTag: cea320fa-d9bf-4072-a22c-83d75d31ae5b
+
+	measure 'Gross Profit Margin' = ```
+			DIVIDE([Gross Profit], [Revenues])
+			
+			```
+		displayFolder: PL
+		lineageTag: b0948e75-459c-4b6d-b2ca-5d8f38589d59
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Other Expenses' = ```
+			
+			(
+			    CALCULATE (
+			        [Income Values],
+			        'Income Statement Data'[Type] = "Expenses"
+			    ) + [COGS]
+			) * -1
+			
+			```
+		formatString: 0
+		displayFolder: PL
+		lineageTag: f4dd3214-209f-4b13-b0cd-e981061d20b1
+
+	measure 'Net Profit' = ```
+			[Revenues] + [COGS] + [Other Expenses]
+			
+			```
+		formatString: 0
+		displayFolder: PL
+		lineageTag: 3257a4bd-7e01-4243-8111-7ed67c211a02
+
+	measure 'Net Profit Margins' = ```
+			DIVIDE([Net Profit], [Revenues])
+			
+			```
+		displayFolder: PL
+		lineageTag: b616b6ca-1f06-4030-ad1a-8861ff483ad4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Actuals = ```
+			
+			VAR Revenue =
+			    CALCULATE([Income Values], 'Income Statement Data'[Type] = "Revenues")
+			VAR Expense =
+			    CALCULATE([Income Values], 'Income Statement Data'[Type] = "Expenses") * -1
+			RETURN
+			    IF(
+			        SELECTEDVALUE('Income Statement Data'[Type]) = "Revenues",
+			        Revenue,
+			        IF(
+			            SELECTEDVALUE('Income Statement Data'[Type]) = "Expenses",
+			            Expense,
+			            Revenue + Expense
+			        )
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: Actuals
+		lineageTag: 07ebcd03-1e0b-4fb9-9460-da37b9df19c2
+
+	measure 'Selected Year Actuals' = ```
+			
+			VAR Current_Item = SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Current_Item = "Total Revenues", [Revenues],
+			        Current_Item = "Total COGS", [COGS],
+			        Current_Item = "Total Gross Profit", [Gross Profit],
+			        Current_Item = "Gross Profit %", FORMAT([Gross Profit Margin], "0.00%"),
+			        Current_Item = "Total Other Expenses", [Other Expenses],
+			        Current_Item = "Total Net Profit", [Net Profit],
+			        Current_Item = "Net Profit %", FORMAT([Net Profit Margins], "0.00%"),
+			        CALCULATE(
+			            [Actuals],
+			            FILTER(
+			                'Income Statement Data',
+			                'Income Statement Data'[Expense Items] = Current_Item
+			            )
+			        )
+			    )
+			
+			```
+		displayFolder: Actuals
+		lineageTag: ba77363b-d519-472a-a2f9-0702528b072f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue LY' = ```
+			CALCULATE(
+			    [Revenues],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		formatString: 0
+		displayFolder: LY
+		lineageTag: 25e8fa84-7f9b-42f0-bfb4-7be547f826f9
+
+	measure 'COGS LY' = ```
+			CALCULATE(
+			    [COGS],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		formatString: 0
+		displayFolder: LY
+		lineageTag: 4e74dac9-ff37-4975-86a1-853750433372
+
+	measure 'Gross Profit LY' = ```
+			CALCULATE(
+			    [Gross Profit],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		formatString: 0
+		displayFolder: LY
+		lineageTag: d36cdeec-03ab-4306-b0f2-106e7e1cb4b7
+
+	measure 'Gross Profit Margin LY' = ```
+			CALCULATE(
+			    [Gross Profit Margin],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		displayFolder: LY
+		lineageTag: 4d53b52d-83a1-4aef-b54c-f5f647b23936
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Other Expenses LY' = ```
+			CALCULATE(
+			    [Other Expenses],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		formatString: 0
+		displayFolder: LY
+		lineageTag: 2d3653a5-9eed-44b1-8217-8a921e611724
+
+	measure 'Net Profit LY' = ```
+			CALCULATE(
+			    [Net Profit],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		formatString: 0
+		displayFolder: LY
+		lineageTag: b801d463-359a-4c40-9102-0a1fa9bdeaf7
+
+	measure 'Net Profit Margins LY' = ```
+			CALCULATE(
+			    [Net Profit Margins],
+			    DATEADD('Date'[Date], -1, Year)
+			)
+			
+			```
+		displayFolder: LY
+		lineageTag: 6f2892fe-f654-455e-b95a-c977fcae41c0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected Year Actuals LY' =
+			
+			VAR Current_Item =
+			    SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Current_Item = "Total Revenues", [Revenue LY],
+			        Current_Item = "Total COGS", [COGS LY],
+			        Current_Item = "Total Gross Profit", [Gross Profit LY],
+			        Current_Item = "Gross Profit %", FORMAT([Gross Profit Margin LY], "0.00%"),
+			        Current_Item = "Total Other Expenses", [Other Expenses LY],
+			        Current_Item = "Total Net Profit", [Net Profit LY],
+			        Current_Item = "Net Profit %", FORMAT([Net Profit Margins LY], "0.00%"),
+			        CALCULATE(
+			            CALCULATE(
+			            [Actuals],
+			            FILTER(
+			                'Income Statement Data',
+			                'Income Statement Data'[Expense Items] = Current_Item
+			            )
+			        ),
+			        SAMEPERIODLASTYEAR('Date'[Date])
+			    )
+			)
+		displayFolder: Actuals
+		lineageTag: 18b8a8a0-4c59-4799-9e2f-5f0ba6b214ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'TY vs PY Actuals' = ```
+			
+			VAR Current_Item =
+			    SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Current_Item = "Total Revenues", [Revenues] - [Revenue LY],
+			        Current_Item = "Total COGS", [COGS] - [COGS LY],
+			        Current_Item = "Total Gross Profit", [Gross Profit] - [Gross Profit LY],
+			        Current_Item = "Total Other Expenses", [Other Expenses] - [Other Expenses LY],
+			        Current_Item = "Total Net Profit", [Net Profit] - [Net Profit LY],
+			        CALCULATE(
+			            [Actuals],
+			            FILTER(
+			                'Income Statement Data',
+			                'Income Statement Data'[Expense Items] = Current_Item
+			            )
+			        ) -
+			        CALCULATE(
+			            CALCULATE(
+			                [Actuals],
+			                FILTER(
+			                    'Income Statement Data',
+			                    'Income Statement Data'[Expense Items] = Current_Item
+			                )
+			            ),
+			            SAMEPERIODLASTYEAR('Date'[Date])
+			        )
+			    )
+			
+			```
+		formatString: 0
+		displayFolder: Actuals
+		lineageTag: 1296ea29-d1d9-41ea-9640-cc57f7f15e5f
+
+	measure 'TY vs PY Actuals 1%' = ```
+			
+			VAR Current_Item =
+			    SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
+			VAR Others =
+			    DIVIDE(
+			        [TY vs PY Actuals],
+			        ABS(
+			            CALCULATE(
+			                CALCULATE(
+			                [Actuals],
+			                FILTER(
+			                    'Income Statement Data',
+			                    'Income Statement Data'[Expense Items] = Current_Item
+			                )
+			                ),
+			                DATEADD('Date'[Date], -1, YEAR)
+			            )
+			        )
+			    )
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        Current_Item = "Total Revenues", DIVIDE([TY vs PY Actuals], [Revenue LY], 0),
+			        Current_Item = "Total COGS", DIVIDE([TY vs PY Actuals], [COGS LY], 0),
+			        Current_Item = "Total Gross Profit", DIVIDE([TY vs PY Actuals], [Gross Profit LY], 0),
+			        Current_Item = "Total Other Expenses", DIVIDE([TY vs PY Actuals], [Other Expenses LY], 0),
+			        Current_Item = "Total Net Profit", DIVIDE([TY vs PY Actuals], [Net Profit LY], 0),
+			        Current_Item = "Gross Profit %", FORMAT([Gross Profit Margin] - [Gross Profit Margin LY], "0.00%"),
+			        Current_Item = "Net Profit %", FORMAT([Net Profit Margins] - [Net Profit Margins LY], "0.00%"),
+			        Others
+			    )
+			
+			```
+		displayFolder: Actuals
+		lineageTag: 8bd88aa5-d496-4615-bba1-cbc230aa1706
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Mesures = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    #"IS Template_Sheet" = Source{[Item="IS Template",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"IS Template_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Row Index", Int64.Type}, {"Income Statement Items", type text}, {"Summary 1", type text}, {"Items (Normalized)", type text}, {"Summary Index", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Income Statement Items", "Items (Normalized)", "Row Index", "Summary 1", "Summary Index"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

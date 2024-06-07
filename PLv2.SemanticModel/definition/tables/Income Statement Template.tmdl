@@ -1,0 +1,62 @@
+table 'Income Statement Template'
+	lineageTag: 77346d46-7c84-4ebb-aa6e-46bad8236c2f
+
+	column 'Row Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7040f569-99d5-4d52-b5c8-4075b853c978
+		summarizeBy: sum
+		sourceColumn: Row Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Statement Items'
+		dataType: string
+		lineageTag: e66a4c39-9fd3-427c-86ef-7344e0ccf5a3
+		summarizeBy: none
+		sourceColumn: Income Statement Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summary 1'
+		dataType: string
+		lineageTag: 7f6b25bb-fe49-497a-9e60-5fc1cae86e89
+		summarizeBy: none
+		sourceColumn: Summary 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Items (Normalized)'
+		dataType: string
+		lineageTag: 26894234-3e6c-4959-88a7-3364791d3750
+		summarizeBy: none
+		sourceColumn: Items (Normalized)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summary Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: e124bff8-1260-4807-aa4b-62920464aaa0
+		summarizeBy: sum
+		sourceColumn: Summary Index
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Income Statement Template' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    #"IS Template_Sheet" = Source{[Item="IS Template",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"IS Template_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Row Index", Int64.Type}, {"Income Statement Items", type text}, {"Summary 1", type text}, {"Items (Normalized)", type text}, {"Summary Index", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

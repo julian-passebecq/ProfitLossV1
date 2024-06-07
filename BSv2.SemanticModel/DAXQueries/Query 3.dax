@@ -1,0 +1,72 @@
+EVALUATE
+SUMMARIZE(
+    Sales,
+    Sales[Channel],
+    "Total Sales", [Total Sales]
+)
+
+
+EVALUATE
+CALCULATETABLE(
+    Sales,
+    Sales[Channel] = "Distributor"
+)
+
+
+EVALUATE
+SUMMARIZE(
+    Sales,
+    Sales[Channel],
+    'Date'[Month - Year],
+    "Category", "Revenue",
+    "First Date", MIN('Date'[Date]),
+    "Sales Values", [Total Sales]
+)
+
+EVALUATE
+UNION (
+    SELECTCOLUMNS(
+        'Company Expenses',
+        "Expense Items", 'Company Expenses'[Expense Items],
+        "Category", 'Company Expenses'[Expense Category],
+        "Values", SUMX(VALUES('Company Expenses'[Expense Items]), [Total Expenses])
+    ),
+    SUMMARIZE (
+        'Channel Revenues',
+        'Channel Revenues'[Channel],
+        'Channel Revenues'[Category],
+        'Channel Revenues'[First Date],
+        "Sales Values", [Sales Values]
+    )
+)
+
+
+EVALUATE
+UNION (
+    SELECTCOLUMNS(
+        'Company Expenses',
+        "Expense Items", 'Company Expenses'[Expense Items],
+        "Category", 'Company Expenses'[Expense Category],
+        "Values", SUMX(VALUES('Company Expenses'[Expense Items]), [Total Expenses])
+    ),
+    SUMMARIZE (
+        'Channel Revenues',
+        'Channel Revenues'[Channel],
+        'Channel Revenues'[Category],
+        'Channel Revenues'[First Date],
+        "Sales Values", [Sales Values]
+    )
+
+
+)
+
+
+EVALUATE
+SUMMARIZE(
+    CALCULATETABLE(
+        'Income Statement Data',
+        'Income Statement Data'[Expense Items] = "Distributor"
+    ),
+    'Income Statement Data'[Expense Items],
+    "Total Revenue", [Total Revenue]
+)

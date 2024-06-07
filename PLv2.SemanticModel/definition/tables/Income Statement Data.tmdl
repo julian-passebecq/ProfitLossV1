@@ -1,0 +1,79 @@
+table 'Income Statement Data'
+	lineageTag: 9be9adf5-0e01-452e-9f80-dbeaab573dac
+
+	column 'Expense Items'
+		dataType: string
+		lineageTag: ce339e2a-af13-4b9b-bde5-5535f63aee3d
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Company Expenses[Expense Items]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Expense Category'
+		dataType: string
+		lineageTag: 05efc2f0-3931-48cc-b86e-35b13279d5bd
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Company Expenses[Expense Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Months
+		dataType: dateTime
+		lineageTag: b9009b42-983d-461e-8773-c4be0cbdb3ec
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Company Expenses[Months]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Expense Values'
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6f1056f8-5bc1-4635-aa69-e27ee65e4058
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Company Expenses[Expense Values]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type = IF('Income Statement Data'[Expense Category] = "Revenue", "Revenues", "Expenses")
+		dataType: string
+		lineageTag: 1208d888-c688-4ea4-b521-67c1dc8d64db
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Type Index' = IF('Income Statement Data'[Expense Category] = "Revenue", 1, 2)
+		dataType: int64
+		formatString: 0
+		lineageTag: 76c5a5a8-af59-4fce-8fa3-79bf63a71ce1
+		summarizeBy: sum
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Income Statement Data' = calculated
+		mode: import
+		source = ```
+				
+				UNION (
+				    'Company Expenses',
+				    SUMMARIZE (
+				        'Channel Revenues',
+				        'Channel Revenues'[Channel],
+				        'Channel Revenues'[Category],
+				        'Channel Revenues'[First Date],
+				        'Channel Revenues'[Sales Values]
+				    )
+				)
+				
+				```
+
+	annotation PBI_Id = 2c894f898b994826998c21c9ff8f73ce
+

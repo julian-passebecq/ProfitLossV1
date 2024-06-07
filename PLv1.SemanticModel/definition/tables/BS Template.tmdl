@@ -1,0 +1,60 @@
+table 'BS Template'
+	lineageTag: af43a18d-5242-4755-9977-070841a9090a
+
+	column 'Row Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: ca3f6fc1-336f-41b1-ad85-92903672fe41
+		summarizeBy: sum
+		sourceColumn: Row Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Balance Sheet Items'
+		dataType: string
+		lineageTag: dbc1d0c6-aa30-47d3-be40-02ee852b880b
+		summarizeBy: none
+		sourceColumn: Balance Sheet Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summary Items'
+		dataType: string
+		lineageTag: 162e497c-fe93-452a-8f78-8bd5b93d6317
+		summarizeBy: none
+		sourceColumn: Summary Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Balance Sheet Normalized'
+		dataType: string
+		lineageTag: 1436657a-2846-4608-bba3-eb2a6ec5488e
+		summarizeBy: none
+		sourceColumn: Balance Sheet Normalized
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Summary Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 62ad2791-41ca-4624-b6d6-166264c2e391
+		summarizeBy: sum
+		sourceColumn: Summary Index
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'BS Template' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    #"BS Template_Sheet" = Source{[Item="BS Template",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"BS Template_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Row Index", Int64.Type}, {"Balance Sheet Items", type text}, {"Summary Items", type text}, {"Balance Sheet Normalized", type text}, {"Summary Index", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

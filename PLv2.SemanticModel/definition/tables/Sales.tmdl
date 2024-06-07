@@ -1,0 +1,126 @@
+table Sales
+	lineageTag: 5c869427-cfaa-46ac-bbec-b63ccd525152
+
+	column OrderNumber
+		dataType: string
+		lineageTag: f7ea1540-6856-4a6e-b9fd-484392ce0a36
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 05c0a379-21a9-476f-8342-da28d9650a01
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Customer Name Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: ea9d1ae5-9ac0-43f1-a90d-baee04a260c1
+		summarizeBy: none
+		sourceColumn: Customer Name Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: c68d7f31-c3cb-4dad-94f8-31255323b10a
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Currency Code'
+		dataType: string
+		lineageTag: b2201bd1-ba48-4907-bfc3-dbf55bd2a694
+		summarizeBy: none
+		sourceColumn: Currency Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Warehouse Code'
+		dataType: string
+		lineageTag: cca2b950-5d72-4d12-aeb4-078d2dfad9f5
+		summarizeBy: none
+		sourceColumn: Warehouse Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Region Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ed2bcae-1beb-407c-88ed-2aaf4c11eeb2
+		summarizeBy: none
+		sourceColumn: Delivery Region Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Description Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d159671-bfd6-4002-9ed4-24ea4251458d
+		summarizeBy: sum
+		sourceColumn: Product Description Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 46574807-3545-470a-b820-a859512429aa
+		summarizeBy: sum
+		sourceColumn: Order Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price'
+		dataType: double
+		lineageTag: 13cc2be3-021d-427d-b994-f90fd6b5943c
+		summarizeBy: sum
+		sourceColumn: Unit Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Line Total'
+		dataType: double
+		lineageTag: 5feb5bfa-741b-40af-b0a4-1a5aa9cc9473
+		summarizeBy: sum
+		sourceColumn: Line Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Unit Cost'
+		dataType: double
+		lineageTag: f91bad5c-5196-49c8-b647-063f34506530
+		summarizeBy: sum
+		sourceColumn: Total Unit Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    Sales_Data_Table = Source{[Item="Sales_Data",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Sales_Data_Table,{{"OrderNumber", type text}, {"OrderDate", type date}, {"Customer Name Index", Int64.Type}, {"Channel", type text}, {"Currency Code", type text}, {"Warehouse Code", type text}, {"Delivery Region Index", Int64.Type}, {"Product Description Index", Int64.Type}, {"Order Quantity", Int64.Type}, {"Unit Price", type number}, {"Line Total", type number}, {"Total Unit Cost", type number}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

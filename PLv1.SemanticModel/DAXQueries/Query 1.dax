@@ -13,3 +13,38 @@ SUMMARIZE (
     "Sales Values", [Total Sales]
 )
 
+
+EVALUATE
+SUMMARIZE(
+    FILTER(
+        'Channel Revenues',
+        'Channel Revenues'[Category] = "Distributor"
+    ),
+    'Channel Revenues'[Channel],
+    "Total Revenue", SUM('Channel Revenues'[Sales Values])
+)
+
+
+EVALUATE
+SUMMARIZE(
+    'Channel Revenues',
+    'Channel Revenues'[Channel],
+    "Total Revenue", SUM('Channel Revenues'[Sales Values])
+)
+
+
+
+
+EVALUATE
+FILTER(
+    SUMMARIZE(
+        'Channel Revenues',
+        'Channel Revenues'[Channel],
+        "Total Revenue", SUM('Channel Revenues'[Sales Values])
+    ),
+    'Channel Revenues'[Channel] = "Distributor"
+)
+
+
+
+

@@ -55,9 +55,12 @@ table Mesures
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Other Expenses' = ```
-			CALCULATE(
-			    [Income Values],
-			    'Income Statement Data'[Type] = "Expenses"
+			
+			(
+			    CALCULATE (
+			        [Income Values],
+			        'Income Statement Data'[Type] = "Expenses"
+			    ) + [COGS]
 			) * -1
 			
 			```
@@ -106,8 +109,7 @@ table Mesures
 
 	measure 'Selected Year Actuals' = ```
 			
-			VAR Current_Item =
-			    SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
+			VAR Current_Item = SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
 			RETURN
 			    SWITCH(
 			        TRUE(),
@@ -136,7 +138,7 @@ table Mesures
 	measure 'Revenue LY' = ```
 			CALCULATE(
 			    [Revenues],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
@@ -147,7 +149,7 @@ table Mesures
 	measure 'COGS LY' = ```
 			CALCULATE(
 			    [COGS],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
@@ -158,7 +160,7 @@ table Mesures
 	measure 'Gross Profit LY' = ```
 			CALCULATE(
 			    [Gross Profit],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
@@ -169,7 +171,7 @@ table Mesures
 	measure 'Gross Profit Margin LY' = ```
 			CALCULATE(
 			    [Gross Profit Margin],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
@@ -181,7 +183,7 @@ table Mesures
 	measure 'Other Expenses LY' = ```
 			CALCULATE(
 			    [Other Expenses],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
@@ -192,7 +194,7 @@ table Mesures
 	measure 'Net Profit LY' = ```
 			CALCULATE(
 			    [Net Profit],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
@@ -203,14 +205,16 @@ table Mesures
 	measure 'Net Profit Margins LY' = ```
 			CALCULATE(
 			    [Net Profit Margins],
-			    DATEADD('Date'[Date], -1, YEAR)
+			    DATEADD('Date'[Date], -1, Year)
 			)
 			
 			```
 		displayFolder: LY
 		lineageTag: 6f2892fe-f654-455e-b95a-c977fcae41c0
 
-	measure 'Selected Year Actuals LY' = ```
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected Year Actuals LY' =
 			
 			VAR Current_Item =
 			    SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
@@ -225,15 +229,16 @@ table Mesures
 			        Current_Item = "Total Net Profit", [Net Profit LY],
 			        Current_Item = "Net Profit %", FORMAT([Net Profit Margins LY], "0.00%"),
 			        CALCULATE(
+			            CALCULATE(
 			            [Actuals],
 			            FILTER(
 			                'Income Statement Data',
 			                'Income Statement Data'[Expense Items] = Current_Item
 			            )
-			        )
+			        ),
+			        SAMEPERIODLASTYEAR('Date'[Date])
 			    )
-			
-			```
+			)
 		displayFolder: Actuals
 		lineageTag: 18b8a8a0-4c59-4799-9e2f-5f0ba6b214ae
 
@@ -255,7 +260,7 @@ table Mesures
 			            [Actuals],
 			            FILTER(
 			                'Income Statement Data',
-			                'Income Statement Data'[Expense Category] = Current_Item
+			                'Income Statement Data'[Expense Items] = Current_Item
 			            )
 			        ) -
 			        CALCULATE(
@@ -275,7 +280,7 @@ table Mesures
 		displayFolder: Actuals
 		lineageTag: 1296ea29-d1d9-41ea-9640-cc57f7f15e5f
 
-	measure 'TY vs PY Actuals %' = ```
+	measure 'TY vs PY Actuals 1%' = ```
 			
 			VAR Current_Item =
 			    SELECTEDVALUE('Income Statement Template'[Items (Normalized)])
@@ -284,10 +289,12 @@ table Mesures
 			        [TY vs PY Actuals],
 			        ABS(
 			            CALCULATE(
+			                CALCULATE(
 			                [Actuals],
 			                FILTER(
 			                    'Income Statement Data',
 			                    'Income Statement Data'[Expense Items] = Current_Item
+			                )
 			                ),
 			                DATEADD('Date'[Date], -1, YEAR)
 			            )

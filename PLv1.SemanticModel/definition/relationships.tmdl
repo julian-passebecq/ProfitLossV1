@@ -14,7 +14,7 @@ relationship ae4fa42f-85bf-9509-886f-66090762a6dc
 	fromColumn: Sales.OrderDate
 	toColumn: Date.Date
 
-relationship 5606bac5-9990-a413-fe8e-fb37dbb8edf5
+relationship b6a68ae6-d828-3617-d632-aa525f394e22
 	fromColumn: 'Income Statement Data'.Months
 	toColumn: Date.Date
 

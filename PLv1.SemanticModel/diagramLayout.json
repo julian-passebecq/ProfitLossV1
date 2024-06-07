@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 373.33334350585938,
-        "y": 2961.333251953125
+        "x": 0,
+        "y": 2230
       },
       "nodes": [
         {
@@ -88,8 +88,8 @@
         },
         {
           "location": {
-            "x": 1325.6873671185404,
-            "y": 3395.1022103925793
+            "x": 1402.8302242613975,
+            "y": 3400.8164961068646
           },
           "nodeIndex": "Income Statement Data",
           "nodeLineageTag": "9be9adf5-0e01-452e-9f80-dbeaab573dac",
@@ -140,7 +140,7 @@
         }
       ],
       "name": "All tables",
-      "zoomValue": 100,
+      "zoomValue": 70,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

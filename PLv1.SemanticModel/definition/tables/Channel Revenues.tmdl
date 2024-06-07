@@ -33,7 +33,7 @@ table 'Channel Revenues'
 
 	column 'First Date'
 		dataType: dateTime
-		formatString: General Date
+		formatString: Short Date
 		lineageTag: c5b345c9-bcce-4776-803e-346ae6b1550a
 		summarizeBy: none
 		isNameInferred

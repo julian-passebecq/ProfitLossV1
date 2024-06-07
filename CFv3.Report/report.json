@@ -1,0 +1,111 @@
+{
+  "config": "{\"version\":\"5.54\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU05\",\"version\":\"5.54\",\"type\":2}},\"activeSectionIndex\":2,\"defaultDrillFilterOtherVisuals\":true,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":false},\"linguisticSchemaSyncVersion\":0,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU05",
+            "path": "BaseThemes/CY24SU05.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "CS",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "c09101bd455abddcdd24",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"604d43c3022657f810d3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1059,\"y\":0,\"z\":1,\"width\":111,\"height\":231,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Date.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Date.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 231.00,
+          "width": 111.00,
+          "x": 1059.00,
+          "y": 0.00,
+          "z": 1.00
+        },
+        {
+          "config": "{\"name\":\"6cc5517408b8c360621f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":0,\"z\":0,\"width\":1049,\"height\":720,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"CF Template.Cash Flow Normalized\",\"active\":true}],\"Values\":[{\"queryRef\":\"MesuresCS.CS Selected Year Actuals\"}],\"Columns\":[{\"queryRef\":\"Date.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"CF Template\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"MesuresCS\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"CS Selected Year Actuals\"},\"Name\":\"MesuresCS.CS Selected Year Actuals\",\"NativeReferenceName\":\"CS Selected Year Actuals\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Date.Year\",\"NativeReferenceName\":\"Year\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Cash Flow Normalized\"},\"Name\":\"CF Template.Cash Flow Normalized\",\"NativeReferenceName\":\"Cash Flow Normalized\"}]},\"expansionStates\":[{\"roles\":[\"Rows\"],\"levels\":[{\"queryRefs\":[\"CF Template.Cash Flow Normalized\"],\"isCollapsed\":true,\"isPinned\":true}],\"root\":{\"identityValues\":null}}],\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"layout\":{\"expr\":{\"Literal\":{\"Value\":\"'Tabular'\"}}}}}],\"subTotals\":[{\"properties\":{\"rowSubtotals\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"showSeeDataLayoutToggleButton\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 720.00,
+          "width": 1049.00,
+          "x": 10.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "BS",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "eedce96fd403aecba277",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"13bdbbb5f0cd30dd67a4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":904,\"y\":0,\"z\":1000,\"width\":250,\"height\":217,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Date.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Date.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2015L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 217.00,
+          "width": 250.00,
+          "x": 904.00,
+          "y": 0.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"82b7a1213b698a660198\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":0,\"z\":0,\"width\":841,\"height\":720,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(BS Template.Row Index)\"},{\"queryRef\":\"BS Template.Balance Sheet Items\"},{\"queryRef\":\"MesuresBS.BS Selected Year Actuals\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"b\",\"Entity\":\"BS Template\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"MesuresBS\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Row Index\"}},\"Function\":0},\"Name\":\"Sum(BS Template.Row Index)\",\"NativeReferenceName\":\"Sum of Row Index\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Balance Sheet Items\"},\"Name\":\"BS Template.Balance Sheet Items\",\"NativeReferenceName\":\"Balance Sheet Items\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"BS Selected Year Actuals\"},\"Name\":\"MesuresBS.BS Selected Year Actuals\",\"NativeReferenceName\":\"BS Selected Year Actuals\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"b\"}},\"Property\":\"Row Index\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"values\":[{\"properties\":{\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"columnHeaders\":[{\"properties\":{\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 720.00,
+          "width": 841.00,
+          "x": 10.00,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "PL",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "fac21093606d5005ed86",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"04f7622174b06c1739e1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":766,\"height\":720,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(Income Statement Template.Row Index)\"},{\"queryRef\":\"Income Statement Template.Income Statement Items\"},{\"queryRef\":\"Mesures.Selected Year Actuals\"},{\"queryRef\":\"Mesures.Selected Year Actuals LY\"},{\"queryRef\":\"Mesures.TY vs PY Actuals\"},{\"queryRef\":\"Mesures.TY vs PY Actuals %\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"i\",\"Entity\":\"Income Statement Template\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"MesuresPL\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Income Statement Items\"},\"Name\":\"Income Statement Template.Income Statement Items\",\"NativeReferenceName\":\"Income Statement Items\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Row Index\"}},\"Function\":0},\"Name\":\"Sum(Income Statement Template.Row Index)\",\"NativeReferenceName\":\"Sum of Row Index\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Selected Year Actuals\"},\"Name\":\"Mesures.Selected Year Actuals\",\"NativeReferenceName\":\"Selected Year Actuals\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Selected Year Actuals LY\"},\"Name\":\"Mesures.Selected Year Actuals LY\",\"NativeReferenceName\":\"Selected Year Actuals LY\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"TY vs PY Actuals\"},\"Name\":\"Mesures.TY vs PY Actuals\",\"NativeReferenceName\":\"TY vs PY Actuals\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"TY vs PY Actuals 1%\"},\"Name\":\"Mesures.TY vs PY Actuals %\",\"NativeReferenceName\":\"TY vs PY Actuals 1%\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Row Index\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"values\":[{\"properties\":{\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"columnHeaders\":[{\"properties\":{\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"202D\"}}}},\"selector\":{\"metadata\":\"Income Statement Template.Income Statement Items\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"42D\"}}}},\"selector\":{\"metadata\":\"Sum(Income Statement Template.Row Index)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"69D\"}}}},\"selector\":{\"metadata\":\"Mesures.TY vs PY Actuals %\"}}]}}}",
+          "filters": "[]",
+          "height": 720.00,
+          "width": 766.00,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"58ec3b3196cc90b8b9c7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1175,\"y\":0,\"z\":1000,\"width\":105,\"height\":211,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Date.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"},\"Name\":\"Date.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}},\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2017L\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 211.00,
+          "width": 105.00,
+          "x": 1175.00,
+          "y": 0.00,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

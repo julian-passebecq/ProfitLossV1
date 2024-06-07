@@ -1,0 +1,9 @@
+EVALUATE
+FILTER(
+    SUMMARIZE(
+        'Income Statement Data',
+        'Income Statement Data'[Expense Items],
+        "Total Revenue", SUM('Income Statement Data'[Expense Values])
+    ),
+    'Income Statement Data'[Expense Items]="Distributor"
+)

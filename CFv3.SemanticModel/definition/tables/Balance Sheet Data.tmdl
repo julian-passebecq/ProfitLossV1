@@ -35,7 +35,6 @@ table 'Balance Sheet Data'
 
 	column 'Balance Sheet Values'
 		dataType: double
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 03668eff-abfc-4777-b387-2e29497bcb89
 		summarizeBy: sum
 		sourceColumn: Balance Sheet Values
@@ -43,6 +42,8 @@ table 'Balance Sheet Data'
 		changedProperty = DataType
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Balance Sheet Data' = m
 		mode: import

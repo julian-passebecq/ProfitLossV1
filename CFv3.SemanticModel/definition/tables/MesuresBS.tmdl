@@ -1,0 +1,125 @@
+table MesuresBS
+	lineageTag: d1c8cee4-36a1-4300-93f7-9020ac3840eb
+
+	measure 'BS Values' =
+			CALCULATE(
+			    SUM('Balance Sheet Data'[Balance Sheet Values]),TREATAS(VALUES('Date'[Year]),'Balance Sheet Data'[Year]))
+		formatString: 0
+		lineageTag: 6e8c31fc-3a0c-4997-b656-37a84fba7025
+
+	measure 'Current Assets' =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Category] = "Current Assets"
+			)
+		formatString: 0
+		lineageTag: 5e320359-3d89-4af0-ba0e-5ee907fcc336
+
+	measure 'Fixed Assets' =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Category] = "Fixed  (LongTerm) Assets"
+			)
+		formatString: 0
+		lineageTag: 32d1fbf0-f598-40fa-a5da-475b94e9c350
+
+	measure 'Other Assets' =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Category]="Other Assets")
+		formatString: 0
+		lineageTag: d604deff-bf8a-466e-b825-c96c5511b837
+
+	measure 'Current Liabilities' =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Category]="Current Liabilities")
+		formatString: 0
+		lineageTag: 4292bc88-8eb8-4f8d-8907-866648e386ab
+
+	measure 'Long-term liabilities' =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Category]="Owner's Equity")
+		formatString: 0
+		lineageTag: a5eea9b2-5c3c-4cc3-9531-6cd14f169175
+
+	measure 'BS Selected Year Actuals' = ```
+			
+			VAR Current_Item = SELECTEDVALUE('BS Template'[Balance Sheet Normalized])
+			VAR Debt_Ratio = FORMAT(DIVIDE([Liabilities], [Assets]), "0.00")
+			VAR Current_Ratio = FORMAT(DIVIDE([Current Assets], [Current Liabilities]), "0.00")
+			VAR Working_Capital = [Current Assets] - [Current Liabilities]
+			VAR Assets_to_Equity_Ratio = FORMAT(DIVIDE([Assets], [Owner's Equity]), "0.00")
+			VAR Debt_to_Equity_Ratio = FORMAT(DIVIDE([Liabilities], [Owner's Equity]), "0.00")
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Current_Item = "Total Assets", [Assets],
+			    Current_Item = "Total current assets", [Current Assets],
+			    Current_Item = "Total fixed assets", [Fixed Assets],
+			    Current_Item = "Total other assets", [Other Assets],
+			    Current_Item = "Total current liabilities", [Current Liabilities],
+			    Current_Item = "Total long-term liabilities", [Long-Term Liabilities],
+			    Current_Item = "Total owner's equity", [Owner's Equity],
+			    Current_Item = "Total Liabilities and Owner's Equity", [Liabilities] + [Owner's Equity],
+			    Current_Item = "Debt Ratio (Total Liabilities / Total Assets)", Debt_Ratio,
+			    Current_Item = "Current Ratio (Current Assets / Current Liabilities)", Current_Ratio,
+			    Current_Item = "Working Capital (Current Assets - Current Liabilities)", Working_Capital,
+			    Current_Item = "Assets-to-Equity Ratio (Total Assets / Owner's Equity)", Assets_to_Equity_Ratio,
+			    Current_Item = "Debt-to-Equity Ratio (Total Liabilities / Owner's Equity)", Debt_to_Equity_Ratio,
+			    CALCULATE(
+			        [BS Values],
+			        FILTER('Balance Sheet Data', 'Balance Sheet Data'[Sub Category] = Current_Item)
+			    )
+			)
+			
+			```
+		lineageTag: 3433d019-b808-42f9-b89c-f9a681c6154f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Owner''s Equity' =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Balance Sheet Type]="Owner's Equity")
+		formatString: 0
+		lineageTag: 15e53066-7570-4caa-96ce-7a8aa9fb9e49
+
+	measure Assets =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Balance Sheet Type]="Assets")
+		formatString: 0
+		lineageTag: 315199cf-c5f4-4840-80ef-8485197d0861
+
+	measure Liabilities =
+			
+			CALCULATE(
+			    [BS Values],
+			    'Balance Sheet Data'[Balance Sheet Type]="Liabilities")
+		formatString: 0
+		lineageTag: 4e0f0157-41a4-4fc2-9c10-eefd184d248b
+
+	partition MesuresBS = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WKklVio0FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

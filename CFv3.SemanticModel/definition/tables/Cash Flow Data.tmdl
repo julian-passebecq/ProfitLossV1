@@ -1,0 +1,62 @@
+table 'Cash Flow Data'
+	lineageTag: 7e82d349-ee24-4718-be0f-d3667ab1662b
+
+	column 'Cash Flow Type'
+		dataType: string
+		lineageTag: 8ffbd622-1b56-4ce1-9345-33621523cc44
+		summarizeBy: none
+		sourceColumn: Cash Flow Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cash Flow Category'
+		dataType: string
+		lineageTag: 270a3602-79b7-45ca-9139-25b6fc5e8df1
+		summarizeBy: none
+		sourceColumn: Cash Flow Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cash Flow Sub Category'
+		dataType: string
+		lineageTag: 16c0913c-3557-43db-92f4-c2c4e3cbf31b
+		summarizeBy: none
+		sourceColumn: Cash Flow Sub Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: string
+		lineageTag: 4684972a-5425-4bdc-b327-e2a265f13a63
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cash Flow Values'
+		dataType: double
+		lineageTag: c5eb867d-9ac2-4a68-a688-6f60fc645747
+		summarizeBy: sum
+		sourceColumn: Cash Flow Values
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Cash Flow Data' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julia\Downloads\Financial Reporting In Power BI.xlsx"), null, true),
+				    #"Cash Flow Data_Sheet" = Source{[Item="Cash Flow Data",Kind="Sheet"]}[Data],
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Cash Flow Data_Sheet",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", Int64.Type}, {"Column5", type number}, {"Column6", type number}, {"Column7", type number}, {"Column8", type number}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type1", [PromoteAllScalars=true]),
+				    #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(#"Promoted Headers", {"Cash Flow Type", "Cash Flow Category", "Cash Flow Sub Category"}, "Attribute", "Value"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Other Columns",{{"Value", "Cash Flow Values"}, {"Attribute", "Year"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

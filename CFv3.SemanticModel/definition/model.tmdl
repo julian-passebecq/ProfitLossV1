@@ -10,7 +10,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBIDesktopVersion = 2.129.1229.0 (24.05)
 
-annotation PBI_QueryOrder = ["MesuresPL","Regions","Products","Company Expenses","Sales","Customers","Income Statement Template","Balance Sheet Data","BS Template","MesuresBS"]
+annotation PBI_QueryOrder = ["MesuresPL","Regions","Products","Company Expenses","Sales","Customers","Income Statement Template","Balance Sheet Data","BS Template","MesuresBS","Cash Flow Data","CF Template","MesuresCS"]
 
 annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
 
@@ -27,6 +27,9 @@ ref table 'Income Statement Template'
 ref table 'Balance Sheet Data'
 ref table 'BS Template'
 ref table MesuresBS
+ref table 'Cash Flow Data'
+ref table 'CF Template'
+ref table MesuresCS
 
 ref cultureInfo en-US
 

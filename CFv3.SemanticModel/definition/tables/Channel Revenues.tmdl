@@ -1,0 +1,73 @@
+table 'Channel Revenues'
+	lineageTag: 95eb4e0b-1890-4e69-aeb7-aa522e2f9165
+
+	column Channel
+		dataType: string
+		lineageTag: dbd5b14f-aa9c-4fdc-9a9a-0b11cca946ef
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Sales[Channel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month - Year'
+		dataType: string
+		lineageTag: de546e4b-b54d-489a-9895-26537bceb7c5
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: Date[Month - Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 52d2a19e-778b-41b1-b995-593d2bea54c4
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c5b345c9-bcce-4776-803e-346ae6b1550a
+		summarizeBy: none
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [First Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Values'
+		dataType: double
+		lineageTag: e7d408eb-4f79-43a7-a753-882ef71b8dbe
+		summarizeBy: sum
+		isNameInferred
+		isDataTypeInferred
+		sourceColumn: [Sales Values]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Channel Revenues' = calculated
+		mode: import
+		source = ```
+				
+				SUMMARIZE(
+				    Sales,
+				    Sales[Channel],
+				    'Date'[Month - Year],
+				    "Category", "Revenue",
+				    "First Date", MIN('Date'[Date]),
+				    "Sales Values", [Total Sales]
+				)
+				
+				```
+
+	annotation PBI_Id = 69aa4290367940dfba7ac876668ce47b
+

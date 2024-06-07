@@ -1,4 +1,4 @@
-table Mesures
+table MesuresPL
 	lineageTag: 0ea70a53-60d3-4521-990e-808a4351eae4
 
 	measure 'Income Values' = ```
@@ -319,7 +319,7 @@ table Mesures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition Mesures = m
+	partition MesuresPL = m
 		mode: import
 		source =
 				let

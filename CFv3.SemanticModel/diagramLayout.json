@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
-        "y": 6984.5764142625621
+        "x": 680,
+        "y": 6984.2863285593794
       },
       "nodes": [
         {
           "location": {
             "x": 506.1306376282505,
-            "y": 7361.6349349219918
+            "y": 15861.029982833135
           },
           "nodeIndex": "Company Expenses",
           "nodeLineageTag": "a47a7fa3-20f6-4ab5-810f-aef62f54aed9",
@@ -24,7 +24,7 @@
         {
           "location": {
             "x": 514.62706829430726,
-            "y": 7635.4861860785668
+            "y": 16134.88123398971
           },
           "nodeIndex": "Customers",
           "nodeLineageTag": "edc6e729-0f6e-49f9-8b1e-0a2b873a5848",
@@ -37,7 +37,7 @@
         {
           "location": {
             "x": 182.46860924743783,
-            "y": 7808.3617127386469
+            "y": 16307.756760649791
           },
           "nodeIndex": "Products",
           "nodeLineageTag": "a3d0dc07-388e-4e3a-b876-7fd677b071c2",
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 868.29128058651486,
-            "y": 7798.2651218907167
+            "y": 16297.66016980186
           },
           "nodeIndex": "Regions",
           "nodeLineageTag": "7eb77021-0624-445b-b638-7c4443a6be0b",
@@ -63,7 +63,7 @@
         {
           "location": {
             "x": 1285.0659751170274,
-            "y": 7793.3463321247864
+            "y": 16292.74138003593
           },
           "nodeIndex": "Date",
           "nodeLineageTag": "faa06385-e4ae-468c-89c1-8b15a463d2e2",
@@ -76,7 +76,7 @@
         {
           "location": {
             "x": 531.70606658539248,
-            "y": 8087.5135462628868
+            "y": 16586.90859417403
           },
           "nodeIndex": "Sales",
           "nodeLineageTag": "5c869427-cfaa-46ac-bbec-b63ccd525152",
@@ -89,7 +89,7 @@
         {
           "location": {
             "x": 1402.8302242613975,
-            "y": 8321.24308092923
+            "y": 16820.638128840372
           },
           "nodeIndex": "Income Statement Data",
           "nodeLineageTag": "9be9adf5-0e01-452e-9f80-dbeaab573dac",
@@ -102,7 +102,7 @@
         {
           "location": {
             "x": 865.61171021847326,
-            "y": 7342.6157541648208
+            "y": 15842.010802075965
           },
           "nodeIndex": "Channel Revenues",
           "nodeLineageTag": "95eb4e0b-1890-4e69-aeb7-aa522e2f9165",
@@ -115,7 +115,7 @@
         {
           "location": {
             "x": 1495.3992336774472,
-            "y": 7366.3543600783933
+            "y": 15865.749407989537
           },
           "nodeIndex": "Income Statement Template",
           "nodeLineageTag": "77346d46-7c84-4ebb-aa6e-46bad8236c2f",
@@ -128,7 +128,7 @@
         {
           "location": {
             "x": 1911.1644866074298,
-            "y": 7875.3709452477824
+            "y": 16374.765993158926
           },
           "nodeIndex": "Balance Sheet Data",
           "nodeLineageTag": "5a15d90a-3d85-4205-bd07-1f791102901a",
@@ -141,7 +141,7 @@
         {
           "location": {
             "x": 1476.8311532740966,
-            "y": 6942.0376119144476
+            "y": 15441.43265982559
           },
           "nodeIndex": "BS Template",
           "nodeLineageTag": "af43a18d-5242-4755-9977-070841a9090a",
@@ -154,7 +154,7 @@
         {
           "location": {
             "x": 2063.3333333333335,
-            "y": 7357.2418521611044
+            "y": 15856.636900072248
           },
           "nodeIndex": "MesuresPL",
           "nodeLineageTag": "0ea70a53-60d3-4521-990e-808a4351eae4",
@@ -167,7 +167,7 @@
         {
           "location": {
             "x": 2006.666666666667,
-            "y": 7012.0273018476573
+            "y": 15511.422349758801
           },
           "nodeIndex": "MesuresBS",
           "nodeLineageTag": "d1c8cee4-36a1-4300-93f7-9020ac3840eb",
@@ -176,6 +176,44 @@
             "width": 234
           },
           "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2164.8647240858954,
+            "y": 9188.9977824185353
+          },
+          "nodeIndex": "Cash Flow Data",
+          "nodeLineageTag": "7e82d349-ee24-4718-be0f-d3667ab1662b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2448.8647240858954,
+            "y": 9188.9977824185353
+          },
+          "nodeIndex": "CF Template",
+          "nodeLineageTag": "8e9f79eb-ad2c-43b2-a0d2-71a16d477d28",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2651.9275055910202,
+            "y": 6984.2863285593794
+          },
+          "nodeIndex": "MesuresCS",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

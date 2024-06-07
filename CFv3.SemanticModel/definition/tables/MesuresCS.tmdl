@@ -1,0 +1,177 @@
+table MesuresCS
+	lineageTag: fcf0a820-56be-48ef-a871-8cb54ec1f466
+
+	measure 'Cash Receipts from - Operations' = ```
+			
+			CALCULATE (
+			    [CS Values],
+			    FILTER (
+			        'Cash Flow Data',
+			        AND (
+			            'Cash Flow Data'[Cash Flow Category] = "Cash receipts from",
+			            'Cash Flow Data'[Cash Flow Type] = "Operations"
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: a023f2d6-69c7-4335-91f4-5ba3868768ef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cash Receipts from - Investing' = ```
+			
+			CALCULATE (
+			    [CS Values],
+			    FILTER (
+			        'Cash Flow Data',
+			        AND (
+			            'Cash Flow Data'[Cash Flow Category] = "Cash receipts from",
+			            'Cash Flow Data'[Cash Flow Type] = "Investing Activities"
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: e4dabfa3-90e2-4c6d-8d2d-90cedc23e8e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cash Receipts from - Financing' = ```
+			
+			CALCULATE (
+			    [CS Values],
+			    FILTER (
+			        'Cash Flow Data',
+			        AND (
+			            'Cash Flow Data'[Cash Flow Category] = "Cash receipts from",
+			            'Cash Flow Data'[Cash Flow Type] = "Financing Activities"
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 297fe790-5091-4914-a145-f8cbf0f82e81
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cash Paid for - Operations' = ```
+			
+			CALCULATE (
+			    [CS Values],
+			    FILTER (
+			        'Cash Flow Data',
+			        AND (
+			            'Cash Flow Data'[Cash Flow Category] = "Cash paid for",
+			            'Cash Flow Data'[Cash Flow Type] = "Operations"
+			        )
+			    )
+			) * -1
+			
+			```
+		lineageTag: 7761d7a3-359b-43e7-a63a-dcd4937f5a2b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cash Paid for - Investing' = ```
+			
+			CALCULATE (
+			    [CS Values],
+			    FILTER (
+			        'Cash Flow Data',
+			        AND (
+			            'Cash Flow Data'[Cash Flow Category] = "Cash paid for",
+			            'Cash Flow Data'[Cash Flow Type] = "Investing Activities"
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: b4f4b39f-b9b2-4a18-8ac8-42a69ba26def
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CS Selected Year Actuals' = ```
+			
+			VAR Current_Item = SELECTEDVALUE('CF Template'[Cash Flow Normalized])
+			VAR Operations_net_cash_flow = [Cash Paid for - Operations] + [Cash Receipts from - Operations]
+			VAR Financing_net_cash_flow = [Cash Paid for - Financing] + [Cash Receipts from - Financing]
+			VAR Investing_net_cash_flow = [Cash Paid for - Investing] + [Cash Receipts from - Investing]
+			VAR Cast_at_start_of_year = 
+			    CALCULATE (
+			        [CS Values],
+			        FILTER (
+			            'Cash Flow Data',
+			            'Cash Flow Data'[Cash Flow Sub Category] = "Cash at Beginning of Year"
+			        )
+			    )
+			VAR Net_increase_in_cash = Operations_net_cash_flow + Financing_net_cash_flow + Investing_net_cash_flow
+			VAR Cash_at_end_of_year = Cast_at_start_of_year + Net_increase_in_cash
+			RETURN
+			    SWITCH (
+			        TRUE(),
+			        Current_Item = "Net Cash Flow from Operations", Operations_net_cash_flow,
+			        Current_Item = "Net Cash Flow from Investing Activities", Investing_net_cash_flow,
+			        Current_Item = "Net Cash Flow from Financing Activities", Financing_net_cash_flow,
+			        Current_Item = "Net Increase in Cash", Net_increase_in_cash,
+			        Current_Item = "Cash at Beginning of Year", Cast_at_start_of_year,
+			        Current_Item = "Cash at End of Year", Cash_at_end_of_year,
+			        CALCULATE (
+			            [CS Values],
+			            FILTER (
+			                'Cash Flow Data',
+			                'Cash Flow Data'[Cash Flow Sub Category] = Current_Item
+			            )
+			        )
+			    )
+			
+			```
+		lineageTag: c3a2cf0e-9b7f-486e-a56b-ccef2e70e8a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cash Paid for - Financing' = ```
+			
+			CALCULATE (
+			    [CS Values],
+			    FILTER (
+			        'Cash Flow Data',
+			        AND (
+			            'Cash Flow Data'[Cash Flow Category] = "Cash paid for",
+			            'Cash Flow Data'[Cash Flow Type] = "Financing Activities"
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 4251d853-26f5-4d6e-bf0d-2974422d77d2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CS Values' =
+			
+			CALCULATE(
+			    SUM('Cash Flow Data'[Cash Flow Values]),
+			    TREATAS(
+			        VALUES('Date'[Year]),
+			        'Cash Flow Data'[Year]
+			    )
+			)
+		lineageTag: dfc61ae9-707e-42fb-8653-cbc20baaaf75
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition MesuresCS = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WSi5LLlOKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
